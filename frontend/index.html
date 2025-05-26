@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Connections Helper</title>
+</head>
+<body>
+    <div id="tools">
+        <h1>Connections Helper</h1>
+        <p>A tool to help you pre-sort the words before you submit your guesses in the actual game. Note: you <b>cannot</b> check your answers here.</p>
+        <h2>Tools</h2>
+        <h3>Select game date (for archive subscribers)</h3>
+        <div id="date-picker">
+            <input type="date" id="history-date" min="" onchange="dateHandler()"/>
+            <button type="submit" onclick="render()">Get</button>
+        </div>
+        <div id="colorbar-container">
+            <h3>Category Colors</h3>
+            <div id="colorbar">
+            </div>
+        </div>
+    </div>
+    <div id="game">
+
+    </div>
+    <div class="footer">
+        <p>Contribute <a href="http://">here</a></p>
+        <p>Contact me <a href="http://">here</a> </p>
+    </div>
+</body>
+
+<script src="index.js"></script>
+
+<script>
+
+    const colors = ["grey", "purple", "blue", "green", "yellow"]
+    let currentColor = colors[0];
+    let data = []
+    let date = ""
+    window.onload = render();
+
+
+
+    async function render() {
+        const potentialDate = `history/${date}`
+        const serverResponse = await fetch(`http://localhost:3000/${date.length ? potentialDate : ""}`);
+        const dataString = await serverResponse.text();
+        
+        data = JSON.parse(dataString);
+
+        try {
+            const e_ = document.getElementById("words-container")
+            const f_ = document.getElementById("colorbar")
+            while (f_.firstChild) {
+                f_.removeChild(f_.firstChild)
+            }
+            document.body.removeChild(e_)
+        } catch (e) {
+            console.error(e)
+        }
+
+        const toolsElement = document.getElementById("colorbar")
+        colors.forEach((color) => {
+            let colorElement = document.createElement("div");
+            colorElement.classList.add("color-button");
+            if (color == currentColor) {
+                colorElement.classList.add("color-button-selected")
+            }
+            colorElement.id = `color-${color}`
+            colorElement.onclick = (() => {
+                currentColor = color;
+                // Remove 'color-button-selected' from all color buttons
+                document.querySelectorAll('.color-button').forEach(btn => {
+                    btn.classList.remove("color-button-selected");
+                });
+                // Add 'color-button-selected' to the clicked button
+                colorElement.classList.add("color-button-selected");
+            })
+            colorElement.style.backgroundColor = color
+            toolsElement.appendChild(colorElement)
+        })
+        const el = document.createElement("div");
+        el.id = "words-container";  
+        document.getElementById("game").appendChild(el)
+        data.forEach((item) => {
+            let word = document.createElement("div");
+            word.classList.add("word");
+            if (item.content) {
+                word.innerText = item.content
+                word.id = `word-${item.content}`;
+            } else if (item.image_url) {
+                const imageElement = document.createElement("img");
+                imageElement.src = item.image_url;
+                imageElement.alt = item.image_alt_text;
+                imageElement.id = item.image_alt_text;
+                word.appendChild(imageElement)
+            }
+
+            word.onclick = (() => {
+                console.log(word.style.backgroundColor)
+                if (word.style.backgroundColor == currentColor) {
+                    word.style.backgroundColor = "";
+                } else {
+                    word.style.backgroundColor = currentColor
+                }
+            });
+            el.appendChild(word);
+        })
+    };
+
+    function dateHandler(word) {
+        const input = document.getElementById("history-date");
+        console.log(input.value);
+        date = input.value;
+    }
+
+</script>
+</html>
