@@ -1,6 +1,7 @@
 import main from "./get_todays_answers.js"
+import type {VercelRequest, VercelResponse} from "@vercel/node"
 
-export default async function handler(req, res) {
+export default async function handler(req:VercelRequest, res:VercelResponse) {
     const query = req.query
     console.log(query)
     let date = ""
@@ -10,5 +11,6 @@ export default async function handler(req, res) {
         date = new Date().toISOString().split('T')[0];
     }
     const resp = await main(date);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(JSON.stringify(resp));
 }

@@ -26,8 +26,8 @@
 
     </div>
     <div class="footer">
-        <p>Contribute <a href="http://">here</a></p>
-        <p>Contact me <a href="http://">here</a> </p>
+        <p>Contribute <a href="https://github.com/rajatvarma/connections-helper">here</a></p>
+        <p>Contact me <a href="mailto:rajatvarma08@gmail.com">here</a></p>
     </div>
 </body>
 
@@ -44,21 +44,22 @@
 
 
     async function render() {
-        const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api${date.length ? "?date="+date : ""}`);
-        const dataString = await serverResponse.text();
-        
-        data = JSON.parse(dataString);
-
         try {
             const e_ = document.getElementById("words-container")
             const f_ = document.getElementById("colorbar")
             while (f_.firstChild) {
                 f_.removeChild(f_.firstChild)
             }
-            document.body.removeChild(e_)
+            document.getElementById("game").removeChild(e_)
         } catch (e) {
             console.error(e)
         }
+        
+        // const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api${date.length ? "?date="+date : ""}`);
+        const serverResponse = await fetch(`http://localhost:3000/api${date.length ? "?date="+date : ""}`);
+        const dataString = await serverResponse.text();
+        
+        data = JSON.parse(dataString);
 
         const toolsElement = document.getElementById("colorbar")
         colors.forEach((color) => {

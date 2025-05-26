@@ -1,15 +1,17 @@
 body {
     background-color: whitesmoke;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-direction: row;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 #tools {
     display: flex;
     padding: 2vh 2vw;
+    max-width: 50vw;
     flex-direction: column;
     justify-content: center;
 }
@@ -71,8 +73,7 @@ body {
 
 .footer {
     display: flex;
-    flex-direction: row;
-    width: 90vw;
+    flex-direction: column;
     justify-content: space-evenly;
 }
 
@@ -82,6 +83,11 @@ body {
         background-color: whitesmoke;
         flex-direction: column;
         font-size: small;
+    }
+
+    #tools {
+        max-width: 90vw;
+        padding: 2vh 5vw;
     }
 
     
@@ -111,4 +117,11 @@ body {
         height: 10vh;
         margin: 1vh 0.5vw;
     }
+
+    .footer {
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+    justify-content: space-evenly;
+}
 }
