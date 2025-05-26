@@ -55,8 +55,7 @@
             console.error(e)
         }
         
-        // const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api${date.length ? "?date="+date : ""}`);
-        const serverResponse = await fetch(`http://localhost:3000/api${date.length ? "?date="+date : ""}`);
+        const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api${date.length ? "?date="+date : ""}`);
         const dataString = await serverResponse.text();
         
         data = JSON.parse(dataString);
