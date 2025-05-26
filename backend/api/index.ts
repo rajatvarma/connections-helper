@@ -1,4 +1,4 @@
-import main from "./get_todays_answers.js"
+import main from "./get_todays_answers.cjs"
 import type {VercelRequest, VercelResponse} from "@vercel/node"
 
 
