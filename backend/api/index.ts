@@ -1,34 +1,16 @@
 import main from "./get_todays_answers.js"
-import express from "express";
-import cors from "cors"
-
-const server = express();
-server.use(cors())
-const port = 3000;
+import type {VercelRequest, VercelResponse} from "@vercel/node"
 
 
-export function GET(request: Request) {
-    return new Response('Vercel', {
-        status: 200
-    });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+    const query = req.query
+    console.log(query)
+    let date = ""
+    if (query.date && typeof(query.date) == "string") {
+        date = query.date
+    } else {
+        date = new Date().toISOString().split('T')[0];
+    }
+    const resp = await main(date);
+    res.send(JSON.stringify(resp));
 }
-
-// server.get('/', async (req, res) => {
-//     const date = new Date();
-//     const formattedDate = date.toISOString().split('T')[0];
-//     console.log(formattedDate); // Output: yyyy-mm-dd
-//     const resp = await main(formattedDate);
-//     res.send(JSON.stringify(resp));
-// })
-
-
-// server.get('/history/:date', async (req, res) => {
-//     console.log(req.params.date)
-//     const resp = await main(req.params.date);
-//     res.send(JSON.stringify(resp));
-// })
-
-
-// server.listen(port, () => {
-//     console.log("Server running...")
-// })

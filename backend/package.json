@@ -2,14 +2,12 @@
   "name": "connections-helper-backend",
   "version": "1.0.0",
   "main": "get_todays_answers.js",
-  "scripts": {
-    "test": "test"
-  },
   "author": "",
   "license": "ISC",
   "description": "",
   "type": "module",
   "dependencies": {
+    "@vercel/node": "^5.1.16",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "node-fetch": "^3.3.2"
