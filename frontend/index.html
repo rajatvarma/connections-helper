@@ -45,7 +45,7 @@
 
     async function render() {
         const potentialDate = `history/${date}`
-        const serverResponse = await fetch(`http://localhost:3000/${date.length ? potentialDate : ""}`);
+        const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api/${date.length ? "date="+potentialDate : ""}`);
         const dataString = await serverResponse.text();
         
         data = JSON.parse(dataString);

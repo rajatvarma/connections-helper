@@ -1,8 +1,6 @@
-import main from "./get_todays_answers.cjs"
-import type {VercelRequest, VercelResponse} from "@vercel/node"
+import main from "./get_todays_answers.js"
 
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
     const query = req.query
     console.log(query)
     let date = ""
