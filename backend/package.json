@@ -1,15 +1,22 @@
 {
   "name": "connections-helper-backend",
   "version": "1.0.0",
-  "main": "get_todays_answers.js",
-  "author": "",
+  "main": "index.ts",
+  "author": "Rajat Varma",
   "license": "ISC",
   "description": "",
   "type": "module",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel deploy",
+    "deploy:prod": "vercel deploy --prod"
+  },
   "dependencies": {
+    "@netlify/functions": "^3.1.10",
+    "@types/node": "^22.15.21",
     "@vercel/node": "^5.1.16",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.8.3"
   }
 }
