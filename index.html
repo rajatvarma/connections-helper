@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300..800&display=swap" rel="stylesheet">
     <title>Connections Helper</title>
 </head>
 <body>
@@ -13,7 +16,7 @@
         <h2>Tools</h2>
         <h3>Select game date (for archive subscribers)</h3>
         <div id="date-picker">
-            <input type="date" id="history-date" min="" onchange="dateHandler()"/>
+            <input type="date" id="history-date" min="2023-06-12" max="new Date().toISOString().split('T')[0]" onchange="dateHandler()"/>
             <button type="submit" onclick="render()">Get</button>
         </div>
         <div id="colorbar-container">
@@ -54,11 +57,35 @@
         } catch (e) {
             console.error(e)
         }
+
+        datePicker = document.getElementById("history-date")
+        datePicker.max = new Date().toISOString().split('T')[0]
         
-        const serverResponse = await fetch(`/.netlify/functions/index${date.length ? "?date="+date : ""}`);
-        const dataString = await serverResponse.text();
-        
-        data = JSON.parse(dataString);
+
+        try {
+            const serverResponse = await fetch(`/.netlify/functions/index${date.length ? "?date="+date : ""}`);
+            const dataString = await serverResponse.text();
+            
+            data = JSON.parse(dataString);
+        } catch {   
+            data = [
+                {content: "recommendation"},
+                {content: "responsibility"},
+                {content: "disappointment"},
+                {content: "representative"},
+                {content: "extraterrestrial"},
+                {content: "superintendent"},
+                {content: "constitutional"},
+                {content: "administration"},
+                {content: "characteristic"},
+                {content: "discrimination"},
+                {content: "rehabilitation"},
+                {content: "infrastructure"},
+                {content: "correspondence"},
+                {content: "identification"},
+            {content: "identification"},
+        {content: "identification"}]
+        }
 
         const toolsElement = document.getElementById("colorbar")
         colors.forEach((color) => {
@@ -70,11 +97,9 @@
             colorElement.id = `color-${color}`
             colorElement.onclick = (() => {
                 currentColor = color;
-                // Remove 'color-button-selected' from all color buttons
                 document.querySelectorAll('.color-button').forEach(btn => {
                     btn.classList.remove("color-button-selected");
                 });
-                // Add 'color-button-selected' to the clicked button
                 colorElement.classList.add("color-button-selected");
             })
             colorElement.style.backgroundColor = color
@@ -98,7 +123,6 @@
             }
 
             word.onclick = (() => {
-                console.log(word.style.backgroundColor)
                 if (word.style.backgroundColor == currentColor) {
                     word.style.backgroundColor = "";
                 } else {
@@ -111,7 +135,6 @@
 
     function dateHandler(word) {
         const input = document.getElementById("history-date");
-        console.log(input.value);
         date = input.value;
     }
 

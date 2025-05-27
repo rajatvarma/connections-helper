@@ -1,5 +1,6 @@
 body {
     background-color: whitesmoke;
+    font-family: "Funnel Sans";
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -51,6 +52,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     cursor: pointer;
+    font-size: 0.8vw;
 }
 
 .word:hover {
