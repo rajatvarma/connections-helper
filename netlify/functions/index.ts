@@ -1,7 +1,7 @@
 import type { Context } from "@netlify/functions";
 import main from "./scrape";
 
-export default async (req: Request, Context: Context) => {
+export default async (req: Request, context: Context) => {
 
     const responseHeaders:ResponseInit = {
         headers: {
@@ -12,7 +12,10 @@ export default async (req: Request, Context: Context) => {
         }
     }
 
-    console.log(req.url);
-    const responseText = await main(new Date().toISOString().split('T')[0]);
+    const requestDate = req.url.split("?date=")[1]
+    const date = requestDate ? requestDate : new Date().toISOString().split('T')[0];
+    console.log(date)
+    const responseText = await main(date);
+    console.log(responseText);
     return new Response(JSON.stringify(responseText), responseHeaders);
 }

@@ -55,7 +55,7 @@
             console.error(e)
         }
         
-        const serverResponse = await fetch(`https://connections-helper-api.vercel.app/api${date.length ? "?date="+date : ""}`);
+        const serverResponse = await fetch(`/.netlify/functions/index${date.length ? "?date="+date : ""}`);
         const dataString = await serverResponse.text();
         
         data = JSON.parse(dataString);
