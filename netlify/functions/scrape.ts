@@ -14,7 +14,6 @@ async function main(date:string) {
 
     const response = await fetch(`https://www.nytimes.com/svc/connections/v2/${date}.json`, requestOptions);
     const text = await response.text();
-    console.log(text)
     const parsedText = JSON.parse(text);
     
     parsedText.categories.forEach((category:{"title": string, "cards": {"content"?: string, "image_url"?: string, "image_alt_text"?:string, "position": number}[]}) => {
@@ -27,8 +26,6 @@ async function main(date:string) {
         if (a.position > b.position) return 1;
         return 0;
     });
-
-    console.log(words)
 
     return words;
 }

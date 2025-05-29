@@ -2,7 +2,7 @@ body {
     background-color: whitesmoke;
     font-family: "Funnel Sans";
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-direction: row;
     align-items: center;
     height: 100vh;
@@ -17,12 +17,38 @@ body {
     justify-content: center;
 }
 
+#tools-heading {
+    display: flex;
+    font-display: row;
+    justify-content: space-between;
+    align-items: center;
+}
 
-#date-picker button{
-    border: none;
-    padding: 1vh 1vw;
+#theme-switch {
+    display: flex;
+    font-display: row;
+    align-items: center;
+}
+
+#date-picker {
+    padding: 0 1vw;
+    display: flex;
+}
+
+#date-picker button {
+    border: 2px solid black;
+    box-shadow: 3px 3px black;
+    outline-offset: 1px; /* Moves the outline outward */
+    font-family: "Funnel Sans";
+    padding: 1vh 2vw;
     margin-left: 2vw;
-    background-color: #ccc;
+    background-color: #b1c4ef;
+    font-weight: 600;
+}
+
+#date-picker button:active {
+    box-shadow: none;
+    translate: 3px 3px;
 }
 
 #colorbar {
@@ -40,15 +66,19 @@ body {
     flex-wrap: wrap;
 }
 
+a {
+    color: #31A6F3;
+}
+
 .word {
     font-weight: 700;
     display: flex;
     width: 7vw;
     height: 7vw;
     margin: 0.5vh 0.5vw;
+    color: #000;
     align-content: center;
     background-color: #ccc;
-    border-radius: 10px;
     flex-wrap: wrap;
     justify-content: center;
     cursor: pointer;
@@ -56,20 +86,18 @@ body {
 }
 
 .word:hover {
-    background-color: #aaa;
+    background-color: #b9b9b9;
     transition: 0.2s;
 }
 
 .color-button {
-    border-radius: 10px;
     flex: 1;
     margin: 0vh 2vw;
     transition: 0.2s ease-out;
 }
 
 .color-button-selected {
-    border: 5px black solid;
-    flex: 2;
+    border: 5px solid;
     transition: 0.2s ease-in;
 }
 
@@ -77,6 +105,63 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+/* From Uiverse.io by martinval9 */ 
+/* The switch - the box around the slider */
+.switch {
+ font-size: 11px;
+ position: relative;
+ display: inline-block;
+ width: 3.5em;
+ height: 1em;
+ margin: 0 1vw;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+}
+
+/* The slider */
+.slider {
+ position: absolute;
+ cursor: pointer;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-color: #ccc;
+ border: 2px solid #000;
+ transition: .4s;
+ border-radius: 1px;
+}
+
+.slider:before {
+ position: absolute;
+ content: "";
+ height: 1.3em;
+ width: 1.2em;
+ border-radius: 2px;
+ left: 0.1em;
+ bottom: -0.4em;
+ background-color: #fff;
+ border: 2px solid #000;
+ transition: 0.1s;
+}
+
+input:checked + .slider {
+ background-color: #000;
+}
+
+input:focus + .slider {
+ box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+ transform: translateX(1.3em);
 }
 
 
@@ -92,6 +177,13 @@ body {
         padding: 2vh 5vw;
     }
 
+    #date-picker input {
+        width: 30vw;
+    }
+
+    #date-picker button{
+        padding: 1vh 5vw;
+    }
     
     #tools h1, #tools h2, #tools h3 {
         margin: 0.5vh 0vw;
@@ -105,19 +197,26 @@ body {
     }
 
     #colorbar {
-        width: 60vw;
+        width: 90vw;
+        flex: 1;
         height: 5vh;
     }
 
     .color-button-selected {
-        border: 3px black solid;
+        border: 3px solid;
     }
 
     .word {
-        font-size: 2.5vw;
+        font-size: 2.25vw;
         width: 20vw;
         height: 10vh;
-        margin: 1vh 0.5vw;
+        margin: 0.5vh 0.5vw;
+        transition: none;
+    }
+
+    .word:hover {
+        transition: none;
+        background-color: #cccccc;
     }
 
     .footer {
